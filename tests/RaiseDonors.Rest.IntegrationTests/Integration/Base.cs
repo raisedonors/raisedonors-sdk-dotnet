@@ -9,8 +9,8 @@ using Shouldly;
 
 namespace RaiseDonors.Rest.Tests.Integration {
     public class Base {
-        internal const string _baseUrl = "http://localhost:63382";
-        internal long _clientId = 10;
+        internal const string _baseUrl = "http://dev.api.raisedonors.com";
+        internal long _clientId = 0;
 
         public Base() {
             RaiseDonorsClient = new ApiClient(_baseUrl, _clientId);

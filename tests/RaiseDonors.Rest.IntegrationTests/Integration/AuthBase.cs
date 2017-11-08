@@ -13,6 +13,7 @@ namespace RaiseDonors.Rest.Tests.Integration {
         private const string _clientKey = "";
         private long _organizationId = 0;
 
+
         public AuthBase() {
             RaiseDonorsClient = new ApiClient(_baseUrl, _clientId);
         }
