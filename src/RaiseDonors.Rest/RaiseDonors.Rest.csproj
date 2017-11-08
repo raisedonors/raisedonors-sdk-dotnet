@@ -74,6 +74,10 @@
     <Compile Include="Models\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryObjects\BaseQO.cs" />
+    <Compile Include="Realms\ReportingRealm.cs" />
+    <Compile Include="Reports\Enum\RecurrenceType.cs" />
+    <Compile Include="Reports\Models\ReportDefinition.cs" />
+    <Compile Include="Reports\Models\ReportDefinitionSchedule.cs" />
     <Compile Include="Reports\Sets\ReportDefinitionSet.cs" />
     <Compile Include="Sets\ApiSet.cs" />
   </ItemGroup>

@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RaiseDonors.Rest;
+using NUnit.Framework;
+using Shouldly;
 
-namespace RaiseDonors.Rest.IntegrationTests.Integration {
+namespace RaiseDonors.Rest.Tests.Integration {
     public class Base {
-        private const string _baseUrl = "http://localhost:63382";
+        internal const string _baseUrl = "http://localhost:63382";
+        internal long _clientId = 10;
 
         public Base() {
-            ApiClient = new ApiClient(_baseUrl);
+            RaiseDonorsClient = new ApiClient(_baseUrl, _clientId);
         }
 
-        public ApiClient ApiClient { get; set; }
+        public ApiClient RaiseDonorsClient { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace RaiseDonors.Rest.Sets {
         private readonly IDictionary<string, string> _requestHeaders = new Dictionary<string, string>();
         private IDictionary<string, string> _parameters = new Dictionary<string, string>();
         private readonly string _baseUrl = string.Empty;
+        internal readonly long? _organizationId = null;
 
         public string BaseUrl { get { return _baseUrl; } }
 
@@ -70,9 +71,14 @@ namespace RaiseDonors.Rest.Sets {
 
         #region Constructor
 
-        protected ApiSet(long clientId, string accessToken, string baseUrl = "https://api.raisedonors.com") {
+        protected ApiSet(long clientId, string accessToken) : this(clientId, accessToken, null) {
+        }
+
+        protected ApiSet(long clientId, string accessToken, long? organizationId, string baseUrl = "https://api.raisedonors.com") {
             _requestHeaders.Add("X-RaiseDonorsClientID", clientId.ToString());
             _requestHeaders.Add("Authorization", "Bearer " + accessToken);
+            _organizationId = organizationId;
+            _baseUrl = baseUrl;
         }
 
         #endregion Constructor
@@ -295,9 +301,9 @@ namespace RaiseDonors.Rest.Sets {
             var request = new RestRequest(method) {
                 Resource = url
             };
-            request.RequestFormat = _contentType == ContentType.JSON ? DataFormat.Json : DataFormat.Xml;
-            //request.AddHeader("Accept-Encoding", "gzip,deflate");
-            //request.AddHeader("Content-Type", !string.IsNullOrEmpty(contentType) ? contentType : _contentType == ContentType.XML ? "application/xml" : "application/json");
+            request.RequestFormat = DataFormat.Json;
+            request.AddHeader("Accept-Encoding", "gzip,deflate");
+            request.AddHeader("Content-Type", "application/json");
             if (_requestHeaders != null && _requestHeaders.Count > 0) {
                 foreach (var current in _requestHeaders) {
                     request.AddHeader(current.Key, current.Value);
@@ -336,26 +342,19 @@ namespace RaiseDonors.Rest.Sets {
 
                 targetUrl = CreateUrl;
             }
-            
+
             var request = CreateRestRequest(method, targetUrl);
             request.Timeout = 20000;
-            if (_contentType == ContentType.XML) {
-                requestInput = entity.ToXml();
-                request.AddParameter("application/xml", requestInput, ParameterType.RequestBody);
-            }
-            else if (_contentType == ContentType.JSON) {
-                requestInput = SerializeToJson<S>(entity);
-                request.AddParameter("application/json", requestInput, ParameterType.RequestBody);
-            }
-
+            requestInput = SerializeToJson<S>(entity);
+            request.AddParameter("application/json", requestInput, "application/json", ParameterType.RequestBody);
             return request;
         }
 
         private string SerializeToJson<S>(S entity) {
             var jsonSettings = new JsonSerializerSettings();
-            jsonSettings.DateFormatString = "yyyy-mm-dd hh:mm:ss";
             jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            jsonSettings.Formatting = Formatting.Indented;
+            jsonSettings.Formatting = Formatting.None;
+            jsonSettings.DefaultValueHandling = DefaultValueHandling.Include;
             return Newtonsoft.Json.JsonConvert.SerializeObject(entity, jsonSettings);
         }
 
