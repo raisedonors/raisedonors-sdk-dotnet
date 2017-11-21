@@ -71,12 +71,9 @@ namespace RaiseDonors.Rest.Sets {
 
         #region Constructor
 
-        protected ApiSet(long clientId, string accessToken) : this(clientId, accessToken, null) {
-        }
-
-        protected ApiSet(long clientId, string accessToken, long? organizationId, string baseUrl = "https://api.raisedonors.com") {
+        protected ApiSet(long clientId, string apiToken, long? organizationId, string baseUrl = "https://api.raisedonors.com") {
             _requestHeaders.Add("X-RaiseDonorsClientID", clientId.ToString());
-            _requestHeaders.Add("Authorization", "Bearer " + accessToken);
+            _requestHeaders.Add("Authorization", "Basic " + apiToken);
             _organizationId = organizationId;
             _baseUrl = baseUrl;
         }

@@ -8,22 +8,20 @@ using Shouldly;
 
 namespace RaiseDonors.Rest.Tests.Integration {
     public class AuthBase {
-        internal const string _baseUrl = "http://dev.api.raisedonors.com";
-        internal long _clientId = 0;
-        private const string _clientKey = "";
-        private long _organizationId = 0;
+        internal const string _baseUrl = "http://localhost:63382";
+        internal long _clientId = 10;
+        private const string _clientKey = "RaiseDonors";
+        private const string _clientSecret = "e1efa1d66e914840ad7a671822738ba7";
+        private long _organizationId = 2;
 
 
         public AuthBase() {
-            RaiseDonorsClient = new ApiClient(_baseUrl, _clientId);
+            
         }
 
         [OneTimeSetUp]
         public virtual async Task Setup() {
-            var restClient = new ApiClient(_clientId, _baseUrl);
-            var authTicket = await restClient.AuthorizeAsync(_clientKey);
-
-            RaiseDonorsClient = new ApiClient(authTicket.Data.AccessToken, _clientId, _organizationId, _baseUrl);
+            RaiseDonorsClient = new ApiClient(_clientKey, _clientSecret, _clientId, _organizationId, _baseUrl);
         }
 
         public ApiClient RaiseDonorsClient { get; set; }

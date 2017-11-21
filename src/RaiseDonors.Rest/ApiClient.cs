@@ -8,6 +8,7 @@ using RestSharp;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using RaiseDonors.Rest.Realms;
+using System.Security.Cryptography;
 
 namespace RaiseDonors.Rest {
     public interface IApiClient {
@@ -19,30 +20,21 @@ namespace RaiseDonors.Rest {
         private const string _defaultBaseUrl = "https://api.raisedonors.com";
         private readonly string _baseUrl;
         private readonly long? _clientId;
+        private readonly string _clientKey;
+        private readonly string _clientSecret;
         private readonly long? _organizationId;
-        private readonly string _accessToken;
 
         public ReportingRealm Reporting;
 
-        public ApiClient(string baseUrl = _defaultBaseUrl) : this(null, null, baseUrl) {
-        }
-
-        public ApiClient(long clientId, string baseUrl = _defaultBaseUrl) : this(string.Empty, clientId, null, baseUrl) {
-
-        }
-
-        public ApiClient(string accessToken, long? clientId, string baseUrl = _defaultBaseUrl) : this(accessToken, null, null, baseUrl) {
-
-        }
-
-        public ApiClient(string accessToken, long? clientId, long? organizationId, string baseUrl = _defaultBaseUrl) {
+        public ApiClient(string clientKey, string clientSecret, long? clientId, long? organizationId, string baseUrl = _defaultBaseUrl) {
             _baseUrl = baseUrl;
             _clientId = clientId;
             _organizationId = organizationId;
-            _accessToken = accessToken;
+            _clientKey = clientKey;
+            _clientSecret = clientSecret;
 
             if (_clientId.HasValue && _organizationId.HasValue) {
-                Reporting = new ReportingRealm(_clientId.Value, _accessToken, _organizationId.Value, _baseUrl);
+                Reporting = new ReportingRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
             }
         }
 
@@ -113,6 +105,32 @@ namespace RaiseDonors.Rest {
                 RefreshToken = json.SelectToken("refresh_token").ToString(),
                 ExpiresAt = DateTime.UtcNow.AddSeconds(double.Parse(json.SelectToken("expires_in").ToString()))
             };
+        }
+
+        private string CreateApiToken() {
+            var md = CalculateMD5Hash(string.Format("{0}:{1}@{2}", _clientKey, _clientSecret, DateTime.UtcNow.ToString("yyyy-MM-dd")));
+            return string.Format("{0}:{1}", "RaiseDonors", EncodeTo64(md.ToLower()));
+        }
+
+        public string CalculateMD5Hash(string input) {
+            var md5 = new MD5CryptoServiceProvider();
+            var inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            var hash = md5.ComputeHash(inputBytes);
+
+            var sb = new StringBuilder();
+            for (var i = 0; i < hash.Length; i++) {
+                sb.Append(hash[i].ToString("X2"));
+            }
+
+            return sb.ToString();
+        }
+
+        private string EncodeTo64(string toEncode) {
+
+            var toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
+            var returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
+
+            return returnValue;
         }
     }
 }

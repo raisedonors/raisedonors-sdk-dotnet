@@ -12,7 +12,7 @@ namespace RaiseDonors.Rest.Reports.Sets {
         private string _listUrl;
         private string _showUrl;
 
-        public ReportDefinitionSet(long clientId, string accessToken, long organizationId, string baseUrl) : base(clientId, accessToken, organizationId, baseUrl) {
+        public ReportDefinitionSet(string apiToken, long clientId, long organizationId, string baseUrl) : base(clientId, apiToken, organizationId, baseUrl) {
             _listUrl = string.Format(LIST_URL, organizationId);
             _showUrl = _listUrl + "/{1}";
         }
