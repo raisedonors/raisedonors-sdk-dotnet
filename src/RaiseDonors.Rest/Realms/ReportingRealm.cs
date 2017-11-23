@@ -8,6 +8,7 @@ using RaiseDonors.Rest.Reports.Sets;
 namespace RaiseDonors.Rest.Realms {
     public class ReportingRealm {
         private ReportDefinitionSet _reportDefinitionSet;
+        private ReportQueueSet _reportQueueSet;
         private readonly long _clientId;
         private readonly string _apiToken;
         private readonly string _clientSecret;
@@ -28,6 +29,16 @@ namespace RaiseDonors.Rest.Realms {
                 }
 
                 return _reportDefinitionSet;
+            }
+        }
+
+        public ReportQueueSet ReportQueues {
+            get {
+                if (_reportQueueSet == null) {
+                    _reportQueueSet = new ReportQueueSet(_apiToken, _clientId, _organizationId, _baseUrl);
+                }
+
+                return _reportQueueSet;
             }
         }
     }

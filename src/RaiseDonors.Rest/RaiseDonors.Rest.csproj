@@ -76,9 +76,12 @@
     <Compile Include="QueryObjects\BaseQO.cs" />
     <Compile Include="Realms\ReportingRealm.cs" />
     <Compile Include="Reports\Enum\RecurrenceType.cs" />
+    <Compile Include="Reports\Enum\ReportQueueStatus.cs" />
     <Compile Include="Reports\Models\ReportDefinition.cs" />
     <Compile Include="Reports\Models\ReportDefinitionSchedule.cs" />
+    <Compile Include="Reports\Models\ReportQueue.cs" />
     <Compile Include="Reports\Sets\ReportDefinitionSet.cs" />
+    <Compile Include="Reports\Sets\ReportQueueSet.cs" />
     <Compile Include="Sets\ApiSet.cs" />
   </ItemGroup>
   <ItemGroup>

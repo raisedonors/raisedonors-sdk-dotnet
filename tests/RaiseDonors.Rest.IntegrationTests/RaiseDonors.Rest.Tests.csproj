@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Integration\AuthBase.cs" />
     <Compile Include="Integration\Reporting\ReportDefinitionTests.cs" />
+    <Compile Include="Integration\Reporting\ReportQueueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
