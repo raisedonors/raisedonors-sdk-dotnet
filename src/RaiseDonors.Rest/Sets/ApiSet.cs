@@ -107,7 +107,7 @@ namespace RaiseDonors.Rest.Sets {
             return response.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse<T>> Get(string id) {
+        public virtual async Task<IRaiseDonorsResponse<T>> GetAsync(string id) {
             if (string.IsNullOrWhiteSpace(GetUrl)) {
                 throw new NotImplementedException("The property GetUrl has no value on the ApiSet.");
             }
@@ -123,7 +123,7 @@ namespace RaiseDonors.Rest.Sets {
         /// <param name="parentID">The parent ID</param>
         /// <param name="id">The child ID</param>
         /// <returns>Returns a generic object (T)</returns>
-        public virtual async Task<IRaiseDonorsResponse<T>> Get(string parentID, string id) {
+        public virtual async Task<IRaiseDonorsResponse<T>> GetAsync(string parentID, string id) {
             if (string.IsNullOrWhiteSpace(GetChildUrl)) {
                 throw new NotImplementedException("The property GetChildUrl has no value on the ApiSet.");
             }
@@ -134,28 +134,28 @@ namespace RaiseDonors.Rest.Sets {
             return item.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse<T>> GetByUrl(string url) {
+        public virtual async Task<IRaiseDonorsResponse<T>> GetByUrlAsync(string url) {
             var request = CreateRestRequest(Method.GET, url.Substring(BaseUrl.Length));
             var item = await ExecuteRequestAsync<T>(request);
 
             return item.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse<S>> GetBySuffixUrl<S>(string url) where S : new() {
+        public virtual async Task<IRaiseDonorsResponse<S>> GetBySuffixUrlAsync<S>(string url) where S : new() {
             var request = CreateRestRequest(Method.GET, url);
             var item = await ExecuteRequestAsync<S>(request);
 
             return item.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse> GetBySuffixUrl(string url) {
+        public virtual async Task<IRaiseDonorsResponse> GetBySuffixUrlAsync(string url) {
             var request = CreateRestRequest(Method.GET, url);
             var item = await ExecuteGenericRequestAsync(request);
 
             return item.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse<S>> Search<S>(BaseQO qo) where S : new() {
+        public virtual async Task<IRaiseDonorsResponse<S>> SearchAsync<S>(BaseQO qo) where S : new() {
             if (string.IsNullOrWhiteSpace(SearchUrl)) {
                 throw new NotImplementedException("The property SearchUrl has no value on the ApiSet.");
             }
@@ -169,13 +169,13 @@ namespace RaiseDonors.Rest.Sets {
             return response.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse> Post(string url) {
+        public virtual async Task<IRaiseDonorsResponse> PostAsync(string url) {
             var request = CreateRestRequest(Method.POST, url);
             var response = await ExecuteGenericRequestAsync(request);
             return response.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse<T>> Create(byte[] stream, string url = "", string fileParamaterName = "stream", string fileName = "", string fileType = "") {
+        public virtual async Task<IRaiseDonorsResponse<T>> CreateAsync(byte[] stream, string url = "", string fileParamaterName = "stream", string fileName = "", string fileType = "") {
             var targetUrl = string.Empty;
             if (!string.IsNullOrWhiteSpace(url)) {
                 if (url.Trim().Length <= BaseUrl.Length) {

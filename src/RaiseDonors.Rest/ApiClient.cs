@@ -109,7 +109,7 @@ namespace RaiseDonors.Rest {
 
         private string CreateApiToken() {
             var md = CalculateMD5Hash(string.Format("{0}:{1}@{2}", _clientKey, _clientSecret, DateTime.UtcNow.ToString("yyyy-MM-dd")));
-            return string.Format("{0}:{1}", "RaiseDonors", EncodeTo64(md.ToLower()));
+            return string.Format("{0}:{1}", _clientKey, EncodeTo64(md.ToLower()));
         }
 
         public string CalculateMD5Hash(string input) {
