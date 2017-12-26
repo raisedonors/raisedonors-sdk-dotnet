@@ -17,7 +17,7 @@ namespace RaiseDonors.Rest.Reports.Sets {
 
         public ReportQueueSet(string apiToken, long clientId, long organizationId, string baseUrl) : base(clientId, apiToken, organizationId, baseUrl) {
             _listUrl = string.Format(LIST_URL, organizationId);
-            _showUrl = _listUrl + "/{1}";
+            _showUrl = _listUrl + "/{0}";
             _createUrl = string.Format(CREATE_URL, organizationId);
             _createUrl = _createUrl + "/{0}/queues";
         }
@@ -30,5 +30,9 @@ namespace RaiseDonors.Rest.Reports.Sets {
         protected override string EditUrl { get { return _showUrl; } }
 
         protected override string GetChildListUrl { get { return _listUrl; } }
+
+        public byte[] Download(long id) {
+            return GetByteArray(string.Format("{0}/{1}/download", _listUrl, id));
+        }
     }
 }
