@@ -231,20 +231,11 @@ namespace RaiseDonors.Rest.Sets {
                 throw new NotImplementedException("The property EditUrl has no value on the ApiSet.");
             }
 
-            var requestValue = string.Empty;
-            var request = CreateRestRequest(Method.PUT, string.Format(EditUrl, id));
-            if (_contentType == ContentType.XML) {
-                requestValue = entity.ToXml();
-                request.AddParameter("application/xml", requestValue, ParameterType.RequestBody);
-
-            }
-            else if (_contentType == ContentType.JSON) {
-                requestValue = JsonConvert.SerializeObject(entity);
-                request.AddParameter("application/json", requestValue, ParameterType.RequestBody);
-            }
+            var requestInput = string.Empty;
+            var request = CreateRestRequestWithRequestBody<T>(entity, Method.PUT, string.Format(EditUrl, id), out requestInput);
 
             var item = await ExecuteRequestAsync<T>(request);
-            return item.ToRaiseDonorsResponse<T>(requestValue);
+            return item.ToRaiseDonorsResponse<T>(requestInput);
         }
 
         public virtual async Task<bool> DeleteAsync(string id) {
@@ -298,6 +289,7 @@ namespace RaiseDonors.Rest.Sets {
             var request = new RestRequest(method) {
                 Resource = url
             };
+            request.Method = method;
             request.RequestFormat = DataFormat.Json;
             request.AddHeader("Accept-Encoding", "gzip,deflate");
             request.AddHeader("Content-Type", "application/json");
