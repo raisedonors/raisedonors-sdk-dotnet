@@ -274,7 +274,7 @@ namespace RaiseDonors.Rest.Sets {
             var client = new RestSharp.RestClient(BaseUrl);
             client.FollowRedirects = false;
 
-            return await client.ExecuteGetTaskAsync(request);
+            return await client.ExecuteTaskAsync(request);
         }
 
         protected async Task<IRestResponse<S>> ExecuteRequestAsync<S>(IRestRequest request) where S : new() {
@@ -289,10 +289,11 @@ namespace RaiseDonors.Rest.Sets {
             var request = new RestRequest(method) {
                 Resource = url
             };
-            request.Method = method;
+
             request.RequestFormat = DataFormat.Json;
             request.AddHeader("Accept-Encoding", "gzip,deflate");
             request.AddHeader("Content-Type", "application/json");
+
             if (_requestHeaders != null && _requestHeaders.Count > 0) {
                 foreach (var current in _requestHeaders) {
                     request.AddHeader(current.Key, current.Value);
