@@ -169,10 +169,10 @@ namespace RaiseDonors.Rest.Sets {
             return response.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse> PostAsync(string url) {
+        public virtual async Task<IRaiseDonorsResponse<T>> PostAsync(string url) {
             var request = CreateRestRequest(Method.POST, url);
-            var response = await ExecuteGenericRequestAsync(request);
-            return response.ToRaiseDonorsResponse();
+            var response = await ExecuteRequestAsync<T>(request);
+            return response.ToRaiseDonorsResponse<T>();
         }
 
         public virtual async Task<IRaiseDonorsResponse<T>> CreateAsync(byte[] stream, string url = "", string fileParamaterName = "stream", string fileName = "", string fileType = "") {

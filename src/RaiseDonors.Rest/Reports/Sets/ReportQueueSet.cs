@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RaiseDonors.Rest.Sets;
 using RaiseDonors.Rest.Reports.Models;
+using RaiseDonors.Rest.Models;
 
 namespace RaiseDonors.Rest.Reports.Sets {
     public class ReportQueueSet : ApiSet<ReportQueue> {
@@ -33,6 +34,10 @@ namespace RaiseDonors.Rest.Reports.Sets {
 
         public byte[] Download(long id) {
             return GetByteArray(string.Format("{0}/{1}/download", _listUrl, id));
+        }
+
+        public async Task<IRaiseDonorsResponse<ReportQueue>> CreateAsync(long reportDefinitionId) {
+            return await PostAsync(string.Format(_createUrl, reportDefinitionId));
         }
     }
 }
