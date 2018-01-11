@@ -20,7 +20,7 @@ namespace RaiseDonors.Rest.Reports.Sets {
             _listUrl = string.Format(LIST_URL, organizationId);
             _showUrl = _listUrl + "/{0}";
             _createUrl = string.Format(CREATE_URL, organizationId);
-            _createUrl = _createUrl + "/{0}/queues";
+            _createUrl = _createUrl + "/{0}/queue";
         }
         protected override string ListUrl { get { return _listUrl; } }
 
