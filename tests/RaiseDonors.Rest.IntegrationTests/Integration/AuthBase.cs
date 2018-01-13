@@ -10,9 +10,9 @@ namespace RaiseDonors.Rest.Tests.Integration {
     public class AuthBase {
         internal const string _baseUrl = "http://localhost:63382";
         internal long _clientId = 10;
-        private const string _clientKey = "RaiseDonors";
-        private const string _clientSecret = "e1efa1d66e914840ad7a671822738ba7";
-        private long _organizationId = 2;
+        internal const string _clientKey = "RaiseDonors";
+        internal const string _clientSecret = "e1efa1d66e914840ad7a671822738ba7";
+        internal long _organizationId = 2;
 
 
         public AuthBase() {

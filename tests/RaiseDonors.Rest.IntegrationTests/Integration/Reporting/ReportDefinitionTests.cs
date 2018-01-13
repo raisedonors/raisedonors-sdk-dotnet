@@ -3,6 +3,8 @@ using NUnit.Framework;
 using Shouldly;
 using System;
 using RaiseDonors.Rest.Reports.Models;
+using System.Collections.Generic;
+using RaiseDonors.Rest.Models;
 
 
 namespace RaiseDonors.Rest.Tests.Integration.Reporting {
@@ -57,6 +59,31 @@ namespace RaiseDonors.Rest.Tests.Integration.Reporting {
             var returnResult = await RaiseDonorsClient.Reporting.ReportDefinitions.CreateAsync(reportDefinition);
             returnResult.RequestValue.ShouldNotBeNullOrEmpty();
             returnResult.Data.Id.ShouldBeGreaterThan(0);
+        }
+
+        [Test]
+        public async Task integration_report_definitions_call_1000_times() {
+            var runResults = new List<dynamic>();
+            var tasks = new Task<IRaiseDonorsResponse<List<ReportDefinition>>>[15];
+
+            for (int i = 0; i < 15; i++) {
+                var rest = new ApiClient(_clientKey, _clientSecret, _clientId, _organizationId, _baseUrl);
+                tasks[i] = rest.Reporting.ReportDefinitions.ListAsync();
+            }
+
+            Task.WaitAll(tasks);
+
+            foreach (var task in tasks) {
+                var data = task.Result;
+
+                runResults.Add(new {
+                    data = data.Data,
+                    error = data.ErrorMessage,
+                    json = data.JsonResponse,
+                    request = data.RequestValue
+                });
+            }
+            runResults.ShouldNotBe(null);
         }
     }
 }
