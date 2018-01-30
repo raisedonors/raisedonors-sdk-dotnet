@@ -72,6 +72,7 @@ namespace RaiseDonors.Rest.Sets {
         #region Constructor
 
         protected ApiSet(long clientId, string apiToken, long? organizationId, string baseUrl = "https://api.raisedonors.com") {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
             _requestHeaders.Add("X-RaiseDonorsClientID", clientId.ToString());
             _requestHeaders.Add("Authorization", "Basic " + apiToken);
             _organizationId = organizationId;
