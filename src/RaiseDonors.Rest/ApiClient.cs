@@ -19,12 +19,19 @@ namespace RaiseDonors.Rest {
     public class ApiClient : IApiClient {
         private const string _defaultBaseUrl = "https://api.raisedonors.com";
         private readonly string _baseUrl;
-        private readonly long? _clientId;
+        private long? _clientId;
         private readonly string _clientKey;
         private readonly string _clientSecret;
-        private readonly long? _organizationId;
+        private long? _organizationId;
 
         public ReportingRealm Reporting;
+        public StoreRealm Store;
+
+        public ApiClient(string clientKey, string clientSecret, string baseUrl = _defaultBaseUrl) {
+            _baseUrl = baseUrl;
+            _clientKey = clientKey;
+            _clientSecret = clientSecret;
+        }
 
         public ApiClient(string clientKey, string clientSecret, long? clientId, long? organizationId, string baseUrl = _defaultBaseUrl) {
             _baseUrl = baseUrl;
@@ -35,7 +42,16 @@ namespace RaiseDonors.Rest {
 
             if (_clientId.HasValue && _organizationId.HasValue) {
                 Reporting = new ReportingRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
+                Store = new StoreRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
             }
+        }
+
+        public void SetRaiseDonorsValues(long clientId, long organizationId) {
+            _clientId = clientId;
+            _organizationId = organizationId;
+
+            Reporting = new ReportingRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
+            Store = new StoreRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
         }
 
         public async Task<RaiseDonorsResponse<AuthTicket>> AuthorizeAsync(string clientKey) {

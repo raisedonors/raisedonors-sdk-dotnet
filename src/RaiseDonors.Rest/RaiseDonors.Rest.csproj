@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryObjects\BaseQO.cs" />
     <Compile Include="Realms\ReportingRealm.cs" />
+    <Compile Include="Realms\StoreRealm.cs" />
     <Compile Include="Reports\Enum\RecurrenceType.cs" />
     <Compile Include="Reports\Enum\ReportQueueStatus.cs" />
     <Compile Include="Reports\Models\ReportDefinition.cs" />
@@ -86,9 +87,16 @@
     <Compile Include="Reports\Sets\ReportDefinitionSet.cs" />
     <Compile Include="Reports\Sets\ReportQueueSet.cs" />
     <Compile Include="Sets\ApiSet.cs" />
+    <Compile Include="Store\Models\ProductFormat.cs" />
+    <Compile Include="Store\Models\ProductTopic.cs" />
+    <Compile Include="Store\Sets\ProductFormatSet.cs" />
+    <Compile Include="Store\Sets\ProductTopicSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Store\Enum\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

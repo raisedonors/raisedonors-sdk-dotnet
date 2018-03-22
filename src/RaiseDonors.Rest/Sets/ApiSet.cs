@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RaiseDonors.Rest.Enum;
-using RestSharp;
-using RaiseDonors.Rest.QueryObjects;
-using RaiseDonors.Rest.Extensions;
-using System.Net.Http;
-using RaiseDonors.Rest.Models;
-using System.Net;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using RaiseDonors.Rest.Enum;
+using RaiseDonors.Rest.Extensions;
+using RaiseDonors.Rest.Models;
+using RaiseDonors.Rest.QueryObjects;
+using RestSharp;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace RaiseDonors.Rest.Sets {
     public abstract class ApiSet<T> where T : new() {
