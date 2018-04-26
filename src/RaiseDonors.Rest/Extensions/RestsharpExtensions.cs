@@ -23,7 +23,7 @@ namespace RaiseDonors.Rest.Extensions {
             response.JsonResponse = restResponse.Content;
 
             if ((int)restResponse.StatusCode >= 300) {
-                response.ErrorMessage = restResponse.ErrorMessage;
+                response.ErrorMessage = restResponse.ErrorMessage + restResponse.Content;
             }
             else {
                 response.Data = restResponse.Data;
