@@ -9,6 +9,7 @@ namespace RaiseDonors.Rest.Realms {
     public class StoreRealm {
         private ProductFormatSet _productFormatSet;
         private ProductTopicSet _productTopicSet;
+        private ProductSet _productSet;
         private readonly long _clientId;
         private readonly string _apiToken;
         private readonly string _clientSecret;
@@ -39,6 +40,16 @@ namespace RaiseDonors.Rest.Realms {
                 }
 
                 return _productTopicSet;
+            }
+        }
+
+        public ProductSet Products {
+            get {
+                if (_productSet == null) {
+                    _productSet = new ProductSet(_apiToken, _clientId, _organizationId, _baseUrl);
+                }
+
+                return _productSet;
             }
         }
     }

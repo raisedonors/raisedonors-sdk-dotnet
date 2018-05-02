@@ -87,9 +87,11 @@
     <Compile Include="Reports\Sets\ReportDefinitionSet.cs" />
     <Compile Include="Reports\Sets\ReportQueueSet.cs" />
     <Compile Include="Sets\ApiSet.cs" />
+    <Compile Include="Store\Models\Product.cs" />
     <Compile Include="Store\Models\ProductFormat.cs" />
     <Compile Include="Store\Models\ProductTopic.cs" />
     <Compile Include="Store\Sets\ProductFormatSet.cs" />
+    <Compile Include="Store\Sets\ProductSet.cs" />
     <Compile Include="Store\Sets\ProductTopicSet.cs" />
   </ItemGroup>
   <ItemGroup>
