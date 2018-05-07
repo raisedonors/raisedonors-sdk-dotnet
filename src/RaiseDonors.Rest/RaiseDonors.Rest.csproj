@@ -90,9 +90,11 @@
     <Compile Include="Store\Models\Product.cs" />
     <Compile Include="Store\Models\ProductFormat.cs" />
     <Compile Include="Store\Models\ProductTopic.cs" />
+    <Compile Include="Store\Models\ProductVariant.cs" />
     <Compile Include="Store\Sets\ProductFormatSet.cs" />
     <Compile Include="Store\Sets\ProductSet.cs" />
     <Compile Include="Store\Sets\ProductTopicSet.cs" />
+    <Compile Include="Store\Sets\ProductVariantSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
