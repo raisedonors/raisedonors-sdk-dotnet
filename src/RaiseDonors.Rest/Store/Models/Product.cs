@@ -6,6 +6,7 @@ namespace RaiseDonors.Rest.Store.Models {
         public Product() {
             Topics = new List<ProductTopic>();
             RelatedProducts = new List<Product>();
+            Variants = new List<ProductVariant>();
         }
 
         public long ID { get; set; }
@@ -14,6 +15,8 @@ namespace RaiseDonors.Rest.Store.Models {
 
         public string ImageBase64 { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public string Description { get; set; }
 
         public string DescriptionCropped { get; set; }
@@ -21,6 +24,8 @@ namespace RaiseDonors.Rest.Store.Models {
         public List<ProductTopic> Topics { get; set; }
 
         public List<Product> RelatedProducts { get; set; }
+
+        public List<ProductVariant> Variants { get; set; }
 
         public DateTime DateCreated { get; set; }
 
