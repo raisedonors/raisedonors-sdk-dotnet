@@ -10,6 +10,8 @@ namespace RaiseDonors.Rest.Store.Models {
 
         public long ProductID { get; set; }
 
+        public string Name { get; set; }
+
         public int ProductFormatID { get; set; }
 
         public string SKU { get; set; }
