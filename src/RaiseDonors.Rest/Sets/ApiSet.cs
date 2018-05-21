@@ -92,6 +92,18 @@ namespace RaiseDonors.Rest.Sets {
             return response.ToRaiseDonorsResponse();
         }
 
+        public virtual async Task<IRaiseDonorsResponse<List<T>>> ListAsync(int page=1, int pageSize=200)
+        {
+            if (string.IsNullOrWhiteSpace(ListUrl))
+            {
+                throw new NotImplementedException("The property ListUrl has no value on the ApiSet.");
+            }
+
+            var request = CreateRestRequest(Method.GET, ListUrl + "?page=" + page + "&pagesize=" + pageSize);
+            var response = await ExecuteRequestAsync<List<T>>(request);
+            return response.ToRaiseDonorsResponse();
+        }
+
         public virtual async Task<IRaiseDonorsResponse<List<T>>> List(string parentID) {
             if (string.IsNullOrWhiteSpace(GetChildListUrl)) {
                 throw new NotImplementedException("The property GetChildListUrl has no value on the ApiSet.");
