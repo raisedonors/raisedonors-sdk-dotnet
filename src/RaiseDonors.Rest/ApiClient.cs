@@ -25,6 +25,7 @@ namespace RaiseDonors.Rest {
         private long? _organizationId;
 
         public ReportingRealm Reporting;
+        public DonationRealm Donations;
         public StoreRealm Store;
 
         public ApiClient(string clientKey, string clientSecret, string baseUrl = _defaultBaseUrl) {
@@ -43,6 +44,7 @@ namespace RaiseDonors.Rest {
             if (_clientId.HasValue && _organizationId.HasValue) {
                 Reporting = new ReportingRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
                 Store = new StoreRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
+                Donations = new DonationRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
             }
         }
 
