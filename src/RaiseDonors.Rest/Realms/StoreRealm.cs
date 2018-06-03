@@ -9,6 +9,8 @@ namespace RaiseDonors.Rest.Realms {
     public class StoreRealm {
         private ProductFormatSet _productFormatSet;
         private ProductTopicSet _productTopicSet;
+        private ProductVariantSet _productVariantSet;
+        private ProductCatalogSet _productCatalogSet;
         private ProductSet _productSet;
         private readonly long _clientId;
         private readonly string _apiToken;
@@ -43,6 +45,16 @@ namespace RaiseDonors.Rest.Realms {
             }
         }
 
+        public ProductVariantSet ProductVariants {
+            get {
+                if (_productVariantSet == null) {
+                    _productVariantSet = new ProductVariantSet(_apiToken, _clientId, _organizationId, _baseUrl);
+                }
+
+                return _productVariantSet;
+            }
+        }
+
         public ProductSet Products {
             get {
                 if (_productSet == null) {
@@ -50,6 +62,16 @@ namespace RaiseDonors.Rest.Realms {
                 }
 
                 return _productSet;
+            }
+        }
+
+        public ProductCatalogSet ProductCatalogs {
+            get {
+                if (_productCatalogSet == null) {
+                    _productCatalogSet = new ProductCatalogSet(_apiToken, _clientId, _organizationId, _baseUrl);
+                }
+
+                return _productCatalogSet;
             }
         }
     }

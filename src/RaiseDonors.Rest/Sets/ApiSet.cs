@@ -88,7 +88,7 @@ namespace RaiseDonors.Rest.Sets {
             return response.ToRaiseDonorsResponse();
         }
 
-        public virtual async Task<IRaiseDonorsResponse<List<T>>> List(string parentID) {
+        public virtual async Task<IRaiseDonorsResponse<List<T>>> ListAsync(string parentID) {
             if (string.IsNullOrWhiteSpace(GetChildListUrl)) {
                 throw new NotImplementedException("The property GetChildListUrl has no value on the ApiSet.");
             }
@@ -98,7 +98,7 @@ namespace RaiseDonors.Rest.Sets {
             return response.ToRaiseDonorsResponse();
         }
 
-        public async Task<IRaiseDonorsResponse<List<S>>> ListBySuffixUrl<S>(string url) where S : new() {
+        public async Task<IRaiseDonorsResponse<List<S>>> ListBySuffixUrlAsync<S>(string url) where S : new() {
             var request = CreateRestRequest(Method.GET, url);
             var response = await ExecuteRequestAsync<List<S>>(request);
             return response.ToRaiseDonorsResponse();
@@ -109,6 +109,21 @@ namespace RaiseDonors.Rest.Sets {
                 throw new NotImplementedException("The property GetUrl has no value on the ApiSet.");
             }
             var request = CreateRestRequest(Method.GET, string.Format(GetUrl, id));
+            var item = await ExecuteRequestAsync<T>(request);
+
+            return item.ToRaiseDonorsResponse();
+        }
+
+        public virtual async Task<IRaiseDonorsResponse<T>> GetAsync(BaseQO qo, string id) {
+            if (string.IsNullOrWhiteSpace(GetUrl)) {
+                throw new NotImplementedException("The property GetUrl has no value on the ApiSet.");
+            }
+            var request = CreateRestRequest(Method.GET, string.Format(GetUrl, id));
+
+            foreach (var pair in qo.ToDictionary()) {
+                request.AddParameter(pair.Key, pair.Value);
+            }
+
             var item = await ExecuteRequestAsync<T>(request);
 
             return item.ToRaiseDonorsResponse();
@@ -235,13 +250,13 @@ namespace RaiseDonors.Rest.Sets {
             return item.ToRaiseDonorsResponse<T>(requestInput);
         }
 
-        public virtual async Task<bool> DeleteAsync(string id) {
+        public virtual async Task<IRaiseDonorsResponse> DeleteAsync(string id) {
             if (string.IsNullOrWhiteSpace(EditUrl)) {
                 throw new NotImplementedException("The property EditUrl has no value on the ApiSet.");
             }
             var request = CreateRestRequest(Method.DELETE, string.Format(EditUrl, id));
             var item = await ExecuteGenericRequestAsync(request);
-            return (int)item.StatusCode < 300;
+            return item.ToRaiseDonorsResponse();
         }
 
         public byte[] GetByteArray(string url) {

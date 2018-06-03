@@ -32,7 +32,7 @@ namespace RaiseDonors.Rest.Store.Models {
 
         public decimal FairMarketValue { get; set; }
 
-        public decimal? USMinDonation { get; set; }
+        public decimal? USAMinDonation { get; set; }
 
         public decimal? UKMinDonation { get; set; }
 
