@@ -54,6 +54,7 @@ namespace RaiseDonors.Rest {
 
             Reporting = new ReportingRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
             Store = new StoreRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
+            Donations = new DonationRealm(CreateApiToken(), _clientId.Value, _organizationId.Value, _baseUrl);
         }
 
         public async Task<RaiseDonorsResponse<AuthTicket>> AuthorizeAsync(string clientKey) {
