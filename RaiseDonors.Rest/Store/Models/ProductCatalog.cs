@@ -7,6 +7,10 @@ using RaiseDonors.Rest.Models;
 
 namespace RaiseDonors.Rest.Store.Models {
     public class ProductCatalog {
+        public ProductCatalog() {
+            Products = new List<Lookup>();
+        }
+
         public long ID { get; set; }
 
         public string Name { get; set; }
