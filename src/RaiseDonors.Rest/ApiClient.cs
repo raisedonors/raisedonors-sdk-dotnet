@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RaiseDonors.Rest.Models;
@@ -99,7 +97,7 @@ namespace RaiseDonors.Rest {
             return response;
         } 
 
-        private AuthTicket CreateAuthTicket(IRestResponse response) {
+        protected AuthTicket CreateAuthTicket(IRestResponse response) {
             var json = JObject.Parse(response.Content);
 
             return new AuthTicket {
@@ -109,7 +107,7 @@ namespace RaiseDonors.Rest {
             };
         }
 
-        private string CreateApiToken() {
+        protected string CreateApiToken() {
             var md = CalculateMD5Hash(string.Format("{0}:{1}@{2}", _clientKey, _clientSecret, DateTime.UtcNow.ToString("yyyy-MM-dd")));
             return string.Format("{0}:{1}", _clientKey, EncodeTo64(md.ToLower()));
         }
