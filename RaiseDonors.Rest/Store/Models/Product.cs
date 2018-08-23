@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RaiseDonors.Rest.Models;
 
 namespace RaiseDonors.Rest.Store.Models {
     public class Product {
@@ -7,6 +8,7 @@ namespace RaiseDonors.Rest.Store.Models {
             Topics = new List<ProductTopic>();
             RelatedProducts = new List<Product>();
             Variants = new List<ProductVariant>();
+            Catalogs = new List<Lookup>();
         }
 
         public long ID { get; set; }
@@ -24,6 +26,8 @@ namespace RaiseDonors.Rest.Store.Models {
         public List<ProductTopic> Topics { get; set; }
 
         public List<Product> RelatedProducts { get; set; }
+
+        public List<Lookup> Catalogs { get; set; }
 
         public List<ProductVariant> Variants { get; set; }
 
