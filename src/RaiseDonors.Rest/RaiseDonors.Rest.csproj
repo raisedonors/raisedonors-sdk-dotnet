@@ -125,6 +125,7 @@
   <ItemGroup>
     <Folder Include="Donations\Enum\" />
   </ItemGroup>
+  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
