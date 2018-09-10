@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RaiseDonors.Rest.Models;
+using RaiseDonors.Rest.Enum;
 
 namespace RaiseDonors.Rest.Store.Models {
     public class Product {
@@ -22,6 +23,12 @@ namespace RaiseDonors.Rest.Store.Models {
         public string Description { get; set; }
 
         public string DescriptionCropped { get; set; }
+
+        public DonationAmountOptionType DonationAmountOptionType { get; set; }
+
+        public string SuggestedAmounts { get; set; }
+
+        public string DonationPlaceholderText { get; set; }
 
         public List<ProductTopic> Topics { get; set; }
 
