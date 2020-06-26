@@ -1,4 +1,5 @@
-﻿using RaiseDonors.Rest.Models;
+﻿using Newtonsoft.Json;
+using RaiseDonors.Rest.Models;
 using RestSharp;
 
 namespace RaiseDonors.Rest.Extensions {
@@ -26,7 +27,7 @@ namespace RaiseDonors.Rest.Extensions {
                 response.ErrorMessage = restResponse.ErrorMessage + restResponse.Content;
             }
             else {
-                response.Data = restResponse.Data;
+                response.Data = JsonConvert.DeserializeObject<S>(restResponse.Content);
             }
             return response;
         }

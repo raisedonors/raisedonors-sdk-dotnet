@@ -287,14 +287,14 @@ namespace RaiseDonors.Rest.Sets {
             var client = new RestSharp.RestClient(BaseUrl);
             client.FollowRedirects = false;
 
-            return await client.ExecuteTaskAsync(request);
+            return await client.ExecuteAsync(request);
         }
 
         protected async Task<IRestResponse<S>> ExecuteRequestAsync<S>(IRestRequest request) where S : new() {
             var client = new RestSharp.RestClient(BaseUrl);
             client.FollowRedirects = false;
 
-            var response = await client.ExecuteTaskAsync<S>(request);
+            var response = await client.ExecuteAsync<S>(request);
             return response;
         }
 
